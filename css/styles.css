@@ -6,18 +6,75 @@ html, body {
 body {
 	margin: 0;
 	min-height: 100vh;
-	/* Circular radial gradient: light purple center -> dark purple edges */
-	background: radial-gradient(circle at center, #e8d3ff 0%, #502463 100%);
+	background-image: url('../img/fons.png');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
+	background-size: cover;
 	color: #ffffff;
-	font-family: Almendra, serif;
+	font-family: 'Almendra', serif;
+	font-weight: 700;
 }
 
 /* Improve readability for headings/paragraphs on the gradient */
 h1, p {
 	text-align: center;
 	margin: 0.5rem 1rem;
+}
+
+/* Button styles */
+.btn-escollir {
+	background-color: #F2D16D;
+	color: #231149;
+	font-size: 28px;
+	border: none;
+	border-radius: 40px;
+	cursor: pointer;
+	font-family: 'Almendra', serif;
+	font-weight: 700;
+	transition: all 0.3s ease;
+	width: 300px;
+	height: 65px;
+	position: absolute;
+	left: calc(50% + 6px);
+	top: calc(50% + 15px);
+	transform: translate(-50%, -50%);
+	z-index: 2;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	white-space: nowrap;
+}
+
+.btn-escollir:hover {
+	background-color: #231149;
+	color: #F2D16D;
+}
+
+.btn-escollir:active {
+	transform: translate(-50%, -50%);
+	background-color: #231149;
+	color: #F2D16D;
+}
+
+/* Container for centered button */
+.button-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	position: relative;
+	padding-left: 50px;
+}
+
+.zodiac-img {
+	position: absolute;
+	top: calc(50% + 30px);
+	left: calc(54% + 20px);
+	transform: translate(-50%, -50%);
+	width: 850px;
+	height: 812px;
+	z-index: 1;
+	padding-left: 50px;
 }
 
 /* Optional: subtle overlay for even better contrast (uncomment to enable)

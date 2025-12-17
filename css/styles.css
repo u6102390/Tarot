@@ -17,6 +17,16 @@ body {
 
 .home-page {
 	background-image: url('../img/fons%20galaxia%20home.jpg');
+	position: relative;
+}
+
+.home-page::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.35);
+	pointer-events: none;
+	z-index: 0;
 }
 
 /* Improve readability for headings/paragraphs on the gradient */
@@ -91,20 +101,143 @@ h1, p {
 }
 
 .brand-top-right {
-	position: fixed;
-	top: 16px;
-	right: 24px;
+	position: absolute;
+	top: 66px;
+	right: 80px;
 	color: #F2D16D;
-	font-size: 85px;
+	font-size: 70px;
 	letter-spacing: 0.12em;
 	text-transform: uppercase;
 	font-family: 'Almendra', serif;
 	font-weight: 700;
 	text-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
-	z-index: 3;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
+}
+
+.welcome-center {
+	position: relative;
+	margin: 30vh auto 0;
+	color: #AA5AA3;
+	font-family: 'Almendra', serif;
+	font-weight: 700;
+	font-size: 36px;
+	text-align: center;
+	text-shadow:
+		0 14px 28px rgba(0, 0, 0, 0.55),
+		0 0 6px rgba(0, 0, 0, 0.35);
+	z-index: 1;
+}
+
+.welcome-subtext {
+	position: relative;
+	margin: 12px auto 60px;
+	width: min(90vw, 980px);
+	color: #ffffff;
+	font-family: 'Public Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+	font-weight: 500;
+	font-size: 24px;
+	line-height: 1.5;
+	text-align: center;
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+	z-index: 1;
+}
+
+.welcome-subtext p {
+	margin: 0.5rem 0 0;
+}
+
+.welcome-subtext img {
+	margin-top: 20px;
+	display: inline-block;
+	height: auto;
+	max-width: 90%;
+	filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
+}
+
+.welcome-subtext img.main-illustration {
+	max-width: 65%;
+}
+
+.welcome-subtext img.separator {
+	max-width: 60%;
+}
+
+.tarots-section {
+	position: relative;
+	margin: 40px auto 0;
+	text-align: center;
+	color: #AA5AA3;
+	font-family: 'Almendra', serif;
+	font-weight: 700;
+	font-size: 36px;
+	text-shadow:
+		0 14px 28px rgba(0, 0, 0, 0.55),
+		0 0 6px rgba(0, 0, 0, 0.35);
+	z-index: 1;
+}
+
+.cards-container {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin: 50px 320px 0 320px;
+	gap: 0;
+	z-index: 1;
+}
+
+.card-left {
+	display: block;
+	width: 150px !important;
+	height: 200px !important;
+	object-fit: contain;
+	filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
+	flex-shrink: 0;
+}
+
+.card-right {
+	display: block;
+	width: 150px !important;
+	height: 200px !important;
+	object-fit: contain;
+	filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
+	flex-shrink: 0;
+}
+
+.header-row {
+	position: relative;
+	display: block;
+	height: 160px;
+	z-index: 1;
+}
+
+.nav-top-left {
+	position: absolute;
+	top: 86px;
+	left: 50%;
+	transform: translateX(calc(-50% - 300px));
+	color: #F2D16D;
+	font-family: 'Almendra', serif;
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 1.15;
+	text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 26px;
+}
+
+.nav-item {
+	color: inherit;
+	text-decoration: none;
+	cursor: default;
+}
+
+.nav-item:hover {
+	text-decoration: underline;
 }
 
 /* Optional: subtle overlay for even better contrast (uncomment to enable)

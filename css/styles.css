@@ -178,14 +178,77 @@ h1, p {
 	z-index: 1;
 }
 
+.informacio-section {
+	position: relative;
+	margin: 60px auto 0;
+	text-align: center;
+	color: #AA5AA3;
+	font-family: 'Almendra', serif;
+	font-weight: 700;
+	font-size: 36px;
+	text-shadow:
+		0 14px 28px rgba(0, 0, 0, 0.55),
+		0 0 6px rgba(0, 0, 0, 0.35);
+	z-index: 1;
+}
+
+.informacio-container {
+	position: relative;
+	text-align: center;
+	margin: 40px auto 0;
+	z-index: 1;
+}
+
+.informacio-image {
+	max-width: 100%;
+	height: auto;
+	filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
+}
+
 .cards-container {
 	position: relative;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: flex-start;
 	margin: 50px 320px 0 320px;
-	gap: 0;
+	gap: 180px;
 	z-index: 1;
+}
+
+.card-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+
+.btn-tarot-classic {
+	background-color: #F2D16D;
+	color: #231149;
+	font-family: 'Almendra', serif;
+	font-weight: 700;
+	font-size: 24px;
+	border: none;
+	border-radius: 25px;
+	padding: 8px 20px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.btn-tarot-classic:hover {
+	background-color: #231149;
+	color: #F2D16D;
+}
+
+.separator-section {
+	position: relative;
+	text-align: center;
+	margin-top: 100px;
+	z-index: 1;
+}
+
+.separator-section .separator {
+	max-width: 40%;
 }
 
 .card-left {
@@ -199,11 +262,12 @@ h1, p {
 
 .card-right {
 	display: block;
-	width: 150px !important;
-	height: 200px !important;
+	width: 280px !important;
+	height: 330px !important;
 	object-fit: contain;
 	filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
 	flex-shrink: 0;
+	margin-top: -60px;
 }
 
 .header-row {

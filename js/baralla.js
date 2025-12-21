@@ -1,5 +1,3 @@
-/* DE NICOLE */
-
 const tarotCards = [ 
     { name: "High Priestess", image: "images/high priestess.png" },
     { name: "Justice", image: "images/justice.png" },
@@ -29,7 +27,8 @@ const tarotCards = [
     { name: "Seven of Cups", image: "images/seven of cups.png" },
     { name: "Six of Sword", image: "images/six of sword.png" },
 ];
-const backCardImage = "images/image 5.png"; // back of card image
+// Use the actual image asset in the `img/` folder
+const backCardImage = "img/image 5.png"; // back of card image (also used as front to force all cards to show image 5)
 document.addEventListener('DOMContentLoaded', () => {
     // `tartoCards` is defined in js/tarot.js
     const container = document.querySelector('.cards');
@@ -67,9 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // pick a random card from the full tarotCards array for the front face
     const randCard = tarotCards[Math.floor(Math.random() * tarotCards.length)] || c;
+    // helper to fix path prefix (some entries use `images/` but assets live in `img/`)
+    const fixPath = (p) => (typeof p === 'string' ? p.replace(/^images\//, 'img/') : p);
     const front = document.createElement('img');
     front.className = 'card-face front';
-    front.src = randCard.image || c.image || backCardImage;
+    front.src = fixPath(randCard.image || c.image) || backCardImage;
     front.alt = randCard.name || c.name || 'card front';
 
         inner.appendChild(back);

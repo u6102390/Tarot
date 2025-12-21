@@ -6,13 +6,23 @@ html, body {
 body {
 	margin: 0;
 	min-height: 100vh;
-	background-image: url('../img/fons.png');
+	background-image: url('../img/Fons.png');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
 	color: #ffffff;
 	font-family: 'Almendra', serif;
 	font-weight: 700;
+}
+
+/* Index page specific background (explicit file requested by user: "fons.png") */
+.index-bg {
+	/* Use the project img folder file; case matches actual file 'Fons.png' */
+	background-image: url('../img/Fons.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 
 .home-page {
@@ -441,3 +451,177 @@ h1, p {
 	pointer-events: none;
 }
 */
+
+/* CSS DE NICOLE */
+body {
+	margin: 0;
+	min-height: 100vh;
+	/* Circular radial gradient: light purple center -> dark purple edges */
+	background: radial-gradient(circle at center, #D8BCE8 0%, #614b92 50%, #231149 100%);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+h1 {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	margin: 0;
+	z-index: 200; 
+	font-family: "Almendra";
+	font-weight: 700;
+	font-size: 85px;
+	font-style: normal;
+	color: #F2D16D;
+	transition: color 180ms ease;
+}
+
+h1:hover {
+    color: #AA5AA3;
+}
+
+h2{
+	font-family: Almendra;
+	font-size: 36px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	color: var(--Fucsia, #F2D16D);
+	text-align: center;
+	padding-top: 90px;
+}
+
+.card-fan {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 85px;
+	/* move the whole fan up by 50px */
+	transform: translateY(-150px);
+}
+/* trio page specific spacing: distance from viewport top and bottom */
+.cards{
+    margin-top: 150px;
+}
+.card-fan .cards {
+	position: relative;
+	width: 1220px;
+	height: 320px;
+}
+
+/* Trio-specific larger card dimensions (front and back) */
+.card-fan.trio .cards {
+	/* make room for taller cards */
+	height: 420px;
+}
+.card-fan.trio .cards .card {
+	width: 205.44px;
+	height: 346.52px;
+}
+.card-fan.trio .cards .card .card-face,
+.card-fan.trio .cards .card .card-face img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+.card-fan .cards .card {
+	position: absolute;
+	left: 50%;
+	top: 55%;
+	width: 132px;
+	height: 225px;
+	transform-origin: 50% 90%; /* pivot near bottom center */
+	transition: transform 200ms ease, z-index 200ms;
+	box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+	border-radius: 6px;
+	/* default scale variable (1 = no scale) */
+	--s: 1;
+}
+
+/* 3D flip internals */
+.card-fan .cards .card { perspective: 1000px; }
+.card-fan .cards .card .card-inner {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	transform-style: preserve-3d;
+	transition: transform 600ms ease;
+}
+.card-fan .cards .card .card-face {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: inherit;
+	backface-visibility: hidden;
+	display: block;
+}
+.card-fan .cards .card .card-face.front { transform: rotateY(180deg); }
+.card-fan .cards .card .card-face.back { transform: rotateY(0deg); }
+.card-fan .cards .card.flipped .card-inner { transform: rotateY(180deg); }
+
+.card-fan .cards .card img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	border-radius: inherit;
+}
+
+.card-fan .cards .card.center-card {
+	/* base center scale 1.02 multiplied by --s so hover still increases it */
+	transform: translate(-50%,-60%) rotate(0deg) translateX(0px) scale(calc(1.02 * var(--s)));
+	z-index: 100;
+}
+
+/* 19-card fan: angles ~ -42deg .. +42deg, offsets to spread horizontally. z-index increases toward center */
+.card-fan .cards .card:nth-child(1)  { transform: translate(-50%,-60%) rotate(-42deg) translateX(-535.28px) scale(var(--s)); z-index: 81; }
+.card-fan .cards .card:nth-child(2)  { transform: translate(-50%,-60%) rotate(-37.3deg) translateX(-475.80px) scale(var(--s)); z-index: 82; }
+.card-fan .cards .card:nth-child(3)  { transform: translate(-50%,-60%) rotate(-32.7deg) translateX(-416.33px) scale(var(--s)); z-index: 83; }
+.card-fan .cards .card:nth-child(4)  { transform: translate(-50%,-60%) rotate(-28deg) translateX(-356.85px) scale(var(--s)); z-index: 84; }
+.card-fan .cards .card:nth-child(5)  { transform: translate(-50%,-60%) rotate(-23.3deg) translateX(-297.38px) scale(var(--s));  z-index: 85; }
+.card-fan .cards .card:nth-child(6)  { transform: translate(-50%,-60%) rotate(-18.7deg) translateX(-237.90px) scale(var(--s));  z-index: 86; }
+.card-fan .cards .card:nth-child(7)  { transform: translate(-50%,-60%) rotate(-14deg) translateX(-178.43px) scale(var(--s));  z-index: 87; }
+.card-fan .cards .card:nth-child(8)  { transform: translate(-50%,-60%) rotate(-9.3deg) translateX(-118.95px) scale(var(--s));   z-index: 88; }
+.card-fan .cards .card:nth-child(9)  { transform: translate(-50%,-60%) rotate(-4.7deg) translateX(-59.48px) scale(var(--s));   z-index: 89; }
+.card-fan .cards .card:nth-child(10) { transform: translate(-50%,-60%) rotate(0deg)     translateX(0px) scale(var(--s));     z-index: 100; }
+.card-fan .cards .card:nth-child(11) { transform: translate(-50%,-60%) rotate(4.7deg)  translateX(59.48px) scale(var(--s));    z-index: 89; }
+.card-fan .cards .card:nth-child(12) { transform: translate(-50%,-60%) rotate(9.3deg)  translateX(118.95px) scale(var(--s));    z-index: 88; }
+.card-fan .cards .card:nth-child(13) { transform: translate(-50%,-60%) rotate(14deg)   translateX(178.43px) scale(var(--s));    z-index: 87; }
+.card-fan .cards .card:nth-child(14) { transform: translate(-50%,-60%) rotate(18.7deg) translateX(237.90px) scale(var(--s));    z-index: 86; }
+.card-fan .cards .card:nth-child(15) { transform: translate(-50%,-60%) rotate(23.3deg) translateX(297.38px) scale(var(--s));    z-index: 85; }
+.card-fan .cards .card:nth-child(16) { transform: translate(-50%,-60%) rotate(28deg)   translateX(356.85px) scale(var(--s));   z-index: 84; }
+.card-fan .cards .card:nth-child(17) { transform: translate(-50%,-60%) rotate(32.7deg) translateX(416.33px) scale(var(--s));   z-index: 83; }
+.card-fan .cards .card:nth-child(18) { transform: translate(-50%,-60%) rotate(37.3deg) translateX(475.80px) scale(var(--s));   z-index: 82; }
+.card-fan .cards .card:nth-child(19) { transform: translate(-50%,-60%) rotate(42deg)   translateX(535.28px) scale(var(--s));   z-index: 81; }
+
+/* responsive: reduce size on small screens */
+@media (max-width: 520px) {
+    .card-fan .cards { width: 360px; height: 260px; }
+    .card-fan .cards .card { width: 96px; height: 162px; }
+}
+
+/* hover: bump the hovered card a bit larger */
+.card-fan .cards .card:hover {
+	--s: 1.06; /* multiply existing scale by 1.06 */
+	z-index: 120; /* bring hovered card to front */
+}
+
+/* instruction overlay (centered) */
+.fan-instruction {
+	/* place the instruction 200px below the cards inside the .card-fan container */
+	position: static;
+	margin-top: 200px;
+	color: #F2D16D;
+	font-size: 36px;
+	font-family: 'Public Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 0;
+	pointer-events: none;
+	z-index: 150;
+}
+

@@ -85,8 +85,8 @@ h1, p {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 800px;
-	height: 760px;
+	width: 600px;
+	height: 570px;
 	z-index: 1;
 	animation: rotate 20s linear infinite;
 }

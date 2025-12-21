@@ -1,6 +1,5 @@
 /* DE NICOLE */
-
-const tarotCards = [ 
+/* const tarotCards = [ 
     { name: "High Priestess", image: "images/high priestess.png" },
     { name: "Justice", image: "images/justice.png" },
     { name: "Strength", image: "images/strength.png" },
@@ -28,7 +27,33 @@ const tarotCards = [
     { name: "Ring of Pentacle", image: "images/ring of pentacle.png" },
     { name: "Seven of Cups", image: "images/seven of cups.png" },
     { name: "Six of Sword", image: "images/six of sword.png" },
+]; */
+
+const tarotCards = [ 
+    { name: "The Fool", image: "images/0_the_fool.png" },
+    { name: "The Magician", image: "images/1_the_magician.png" },
+    { name: "The High Priestess", image: "images/2_the_high_priestess.png" },
+    { name: "The Empress", image: "images/3_the_empress.png" },
+    { name: "The Emperor", image: "images/4_the_emperor.png" },
+    { name: "The Hierophant", image: "images/5_the_hierophant.png" },
+    { name: "The Lovers", image: "images/6_the_lovers.png" },
+    { name: "The Chariot", image: "images/7_the_chariot.png" },
+    { name: "Strength", image: "images/8_strength.png" },
+    { name: "The Hermit", image: "images/9_the_hermit.png" },
+    { name: "Wheel of Fortune", image: "images/10_wheel_of_fortune.png" },
+    { name: "Justice", image: "images/11_justice.png" },
+    { name: "The Hanged Man", image: "images/12_the_hanged_man.png" },
+    { name: "Death", image: "images/13_death.png" },
+    { name: "Temperance", image: "images/14_temperance.png" },
+    { name: "The Devil", image: "images/15_the_devil.png" },
+    { name: "The Tower", image: "images/16_the_tower.png" },
+    { name: "The Star", image:" images/17_the_star.png"},
+    { name: "The Moon", image: "images/18_the_moon.png" },
+    { name: "The Sun", image: "images/19_the_sun.png" },
+    { name: "Judgement", image: "images/20_judgement.png" },
+    { name: "The World", image: "images/21_the_world.png" },
 ];
+
 const backCardImage = "images/image 5.png"; // back of card image
 document.addEventListener('DOMContentLoaded', () => {
     // `tartoCards` is defined in js/tarot.js

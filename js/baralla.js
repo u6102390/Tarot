@@ -25,17 +25,25 @@ const tarotCards = [
 // Use the actual image asset in the `img/` folder
 const backCardImage = "img/image 5.png"; // back of card image (also used as front to force all cards to show image 5)
 document.addEventListener('DOMContentLoaded', () => {
-    // `tartoCards` is defined in js/tarot.js
+    // Make EXIT image (any color) navigate back to home
+    const exitEl = document.querySelector('.contenedor-imagen');
+    if (exitEl) {
+        exitEl.setAttribute('role', 'button');
+        exitEl.setAttribute('tabindex', '0');
+        const goHome = () => { window.location.href = 'home.html'; };
+        exitEl.addEventListener('click', goHome);
+        exitEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                goHome();
+            }
+        });
+    }
+
     const container = document.querySelector('.cards');
     if (!container) return;
 
-    // clear any existing static content
-    container.innerHTML = '';
-
-    // create DOM cards from the array (limit to 19 cards)
-    const cardsArray = tarotCards.slice(0, 19); // take first 19 entries
-
-    // prepare a shuffled list of unique front images (no repeats)
+    // helper: shuffle array copy
     const shuffle = (arr) => {
         const a = arr.slice();
         for (let i = a.length - 1; i > 0; i--) {
@@ -45,117 +53,139 @@ document.addEventListener('DOMContentLoaded', () => {
         return a;
     };
 
-    const shuffledDeck = shuffle(tarotCards);
-    const uniqueFronts = shuffledDeck.slice(0, cardsArray.length);
+    // track last deck signature to avoid immediate repeats on reshuffle
+    let lastSignature = null;
 
-    // maintain selection order so we can preserve the exact order the user selected cards
-    const selectionOrder = [];
+    const buildDeck = () => {
+        // fade out cards container briefly
+        container.style.transition = 'opacity 200ms ease';
+        container.style.opacity = '0';
 
-    // for each generated card we'll assign a unique random tarot image for the front face
-    cardsArray.forEach((c, i) => {
-        const card = document.createElement('div');
-        card.className = 'card';
+        // clear and rebuild after a short delay
+        setTimeout(() => {
+            container.innerHTML = '';
 
-        // mark center card if desired (middle index)
-        if (i === Math.floor(cardsArray.length / 2)) {
-            card.classList.add('center-card');
-        }
+            const cardsArray = tarotCards.slice(0, 19);
+            let shuffledDeck = shuffle(tarotCards);
+            let uniqueFronts = shuffledDeck.slice(0, cardsArray.length);
 
-        // store the card name for later use
-        card.dataset.name = c.name || '';
-        card.dataset.backCardImage = backCardImage;
-
-        // build flip structure: .card-inner > .card-face.back, .card-face.front
-        const inner = document.createElement('div');
-        inner.className = 'card-inner';
-        inner.tabIndex = 0; // focusable for keyboard
-
-        const back = document.createElement('img');
-        back.className = 'card-face back';
-        back.src = backCardImage;
-        back.alt = 'card back';
-        // pick the preselected unique random card for this index
-        const randCard = uniqueFronts[i] || c;
-        // helper to fix path prefix (some entries use `images/` but assets live in `img/`)
-        const fixPath = (p) => (typeof p === 'string' ? p.replace(/^images\//, 'img/') : p);
-        const front = document.createElement('img');
-        front.className = 'card-face front';
-        front.src = fixPath(randCard.image || c.image) || backCardImage;
-        front.alt = randCard.name || c.name || 'card front';
-
-        inner.appendChild(back);
-        inner.appendChild(front);
-        card.appendChild(inner);
-
-        // toggle function — preserves selection order
-        const toggle = () => {
-            card.classList.toggle('flipped');
-            card.classList.toggle('selected');
-            console.log('Card clicked/toggled:', card.dataset.name || card);
-
-            const isSelected = card.classList.contains('selected');
-            if (isSelected) {
-                // add to the end of the selection order
-                selectionOrder.push(card);
-            } else {
-                // remove from selection order if deselected
-                for (let idx = 0; idx < selectionOrder.length; idx++) {
-                    if (selectionOrder[idx] === card) {
-                        selectionOrder.splice(idx, 1);
-                        break;
-                    }
-                }
+            // ensure a different signature from last build (best-effort, few retries)
+            const getSig = (fronts) => fronts.map(f => f && f.name).join('|');
+            let tries = 0;
+            while (lastSignature && getSig(uniqueFronts) === lastSignature && tries < 3) {
+                shuffledDeck = shuffle(tarotCards);
+                uniqueFronts = shuffledDeck.slice(0, cardsArray.length);
+                tries++;
             }
+            lastSignature = getSig(uniqueFronts);
 
-            // when we have exactly 3 selected (in the order the user picked them), save and navigate
-            if (selectionOrder.length === 3) {
-                const picks = selectionOrder.map(s => {
-                    const frontImg = s.querySelector('.card-face.front');
-                    return {
-                        name: s.dataset.name || '',
-                        image: frontImg ? frontImg.src : ''
-                    };
+            const selectionOrder = [];
+
+            cardsArray.forEach((c, i) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                if (i === Math.floor(cardsArray.length / 2)) {
+                    card.classList.add('center-card');
+                }
+
+                card.dataset.name = (uniqueFronts[i] && uniqueFronts[i].name) || c.name || '';
+                card.dataset.backCardImage = backCardImage;
+
+                const inner = document.createElement('div');
+                inner.className = 'card-inner';
+                inner.tabIndex = 0;
+
+                const back = document.createElement('img');
+                back.className = 'card-face back';
+                back.src = backCardImage;
+                back.alt = 'card back';
+
+                const randCard = uniqueFronts[i] || c;
+                const fixPath = (p) => (typeof p === 'string' ? p.replace(/^images\//, 'img/') : p);
+                const front = document.createElement('img');
+                front.className = 'card-face front';
+                front.src = fixPath(randCard.image || c.image) || backCardImage;
+                front.alt = randCard.name || c.name || 'card front';
+
+                inner.appendChild(back);
+                inner.appendChild(front);
+                card.appendChild(inner);
+
+                const toggle = () => {
+                    card.classList.toggle('flipped');
+                    card.classList.toggle('selected');
+
+                    const isSelected = card.classList.contains('selected');
+                    if (isSelected) {
+                        selectionOrder.push(card);
+                    } else {
+                        for (let idx = 0; idx < selectionOrder.length; idx++) {
+                            if (selectionOrder[idx] === card) {
+                                selectionOrder.splice(idx, 1);
+                                break;
+                            }
+                        }
+                    }
+
+                    if (selectionOrder.length === 3) {
+                        const picks = selectionOrder.map(s => {
+                            const frontImg = s.querySelector('.card-face.front');
+                            return {
+                                name: s.dataset.name || '',
+                                image: frontImg ? frontImg.src : ''
+                            };
+                        });
+                        try {
+                            sessionStorage.setItem('selectedThree', JSON.stringify(picks));
+                        } catch (err) {
+                            console.warn('Could not save selected cards to sessionStorage', err);
+                        }
+
+                        try { container.style.pointerEvents = 'none'; } catch (e) {}
+                        setTimeout(() => {
+                            try {
+                                const b = document.body;
+                                b.style.opacity = b.style.opacity || '1';
+                                b.style.transition = 'opacity 1s ease';
+                                requestAnimationFrame(() => { b.style.opacity = '0'; });
+                            } catch (err) {
+                                console.warn('Fade-out failed, will navigate after delay', err);
+                            }
+                            setTimeout(() => { window.location.href = 'trio.html'; }, 1000);
+                        }, 1000);
+                    }
+                };
+
+                card.addEventListener('click', toggle);
+                inner.addEventListener('keydown', (ev) => {
+                    if (ev.key === 'Enter' || ev.key === ' ') {
+                        ev.preventDefault();
+                        toggle();
+                    }
                 });
-                try {
-                    sessionStorage.setItem('selectedThree', JSON.stringify(picks));
-                } catch (err) {
-                    console.warn('Could not save selected cards to sessionStorage', err);
-                }
 
-                // disable further clicks while transitioning
-                try { container.style.pointerEvents = 'none'; } catch (e) {}
+                container.appendChild(card);
+            });
 
-                // wait 1 second on the baralla screen (with pointer events disabled),
-                // then fade out over 1s and navigate — total 2s from selection to navigation
-                setTimeout(() => {
-                    try {
-                        const b = document.body;
-                        b.style.opacity = b.style.opacity || '1';
-                        b.style.transition = 'opacity 1s ease';
-                        requestAnimationFrame(() => { b.style.opacity = '0'; });
-                    } catch (err) {
-                        console.warn('Fade-out failed, will navigate after delay', err);
-                    }
-                    // navigate after fade-out completes (1s)
-                    setTimeout(() => { window.location.href = 'trio.html'; }, 1000);
-                }, 1000);
-            }
-        };
+            // re-enable and fade back in
+            container.style.pointerEvents = '';
+            requestAnimationFrame(() => {
+                container.style.opacity = '1';
+            });
+        }, 180);
+    };
 
-        // click and keyboard handlers
-        card.addEventListener('click', toggle);
-        inner.addEventListener('keydown', (ev) => {
-            if (ev.key === 'Enter' || ev.key === ' ') {
-                ev.preventDefault();
-                toggle();
-            }
+    // initial deck build
+    buildDeck();
+
+    // Reshuffle button: rebuild deck without page reload
+    const reshuffleBtn = document.getElementById('reshuffle-btn');
+    if (reshuffleBtn) {
+        reshuffleBtn.addEventListener('click', () => {
+            // if mid-transition disable clicks briefly
+            try { container.style.pointerEvents = 'none'; } catch (e) {}
+            buildDeck();
         });
-
-        container.appendChild(card);
-    });
-
-    // attach interaction handlers (click to flip / select)
-    container.querySelectorAll('.card').forEach(card => {
-       
-    });
+    }
 });

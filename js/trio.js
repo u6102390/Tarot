@@ -7,6 +7,20 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
         // ignore
     }
+    // Make EXIT image (any color) navigate back to home
+    const exitEl = document.querySelector('.contenedor-imagen');
+    if (exitEl) {
+        exitEl.setAttribute('role', 'button');
+        exitEl.setAttribute('tabindex', '0');
+        const goHome = () => { window.location.href = 'home.html'; };
+        exitEl.addEventListener('click', goHome);
+        exitEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                goHome();
+            }
+        });
+    }
     const tarotCards = [ 
     { name: "The Fool", image: "images/0_the_fool.png" },
     { name: "The Magician", image: "images/1_the_magician.png" },

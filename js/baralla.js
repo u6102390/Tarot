@@ -7,7 +7,7 @@ const tarotCards = [
     { name: "The Hierophant", image: "images/5_the_hierophant.png" },
     { name: "The Lovers", image: "images/6_the_lovers.png" },
     { name: "The Chariot", image: "images/7_the_chariot.png" },
-    { name: "Strength", image: "images/8_strength.png" },
+    { name: "The Strength", image: "images/8_the_strength.png" },
     { name: "The Hermit", image: "images/9_the_hermit.png" },
     { name: "Wheel of Fortune", image: "images/10_wheel_of_fortune.png" },
     { name: "Justice", image: "images/11_justice.png" },

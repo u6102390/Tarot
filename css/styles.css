@@ -304,7 +304,7 @@ h1, p {
 	width: 100%;
 	min-height: 100px;
 	background-color: #231149;
-	margin-top: 150px;
+	margin-top: 30px;
 	position: relative;
 	z-index: 1;
 	display: flex;
@@ -313,6 +313,7 @@ h1, p {
 	padding: 0 50px 0 150px;
 	gap: 150px;
 	box-sizing: border-box;
+	border-top: 2px solid #F2D16D;
 }
 
 .footer-text {
@@ -778,5 +779,125 @@ h2{
 }
 .result-frame-right .result-frame-left { /* keeps width semantics */
 	width: 205.44px;
+}
+
+/* Result page new draw button */
+.result-button-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 120px;
+	margin-top: 40px;
+}
+
+.btn-nova-tirada {
+	background-color: #F2D16D;
+	color: #231149;
+	font-size: 28px;
+	border: none;
+	border-radius: 40px;
+	cursor: pointer;
+	font-family: 'Almendra', serif;
+	font-weight: 700;
+	transition: all 0.3s ease;
+	padding: 12px 40px;
+	min-width: 240px;
+	height: 56px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn-nova-tirada:hover {
+	background-color: #231149;
+	color: #F2D16D;
+	transform: scale(1.05);
+}
+
+.btn-nova-tirada:active {
+	background-color: #231149;
+	color: #F2D16D;
+	transform: scale(0.98);
+}
+
+.result-contact-text {
+	color: #ffffff;
+	font-family: 'Almendra', serif;
+	font-size: 32px;
+	font-weight: 700;
+	text-align: center;
+	margin: 0;
+	line-height: 1.4;
+}
+
+.contact-form {
+	display: flex;
+	flex-direction: column;
+	gap: 60px;
+	margin-top: 0px;
+	width: 100%;
+	max-width: 500px;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.form-group label {
+	color: #ffffff;
+	font-family: 'Almendra', serif;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.form-group input {
+	background-color: rgba(238, 233, 233, 0.08);
+	border: 2px solid rgba(242, 209, 109, 0.3);
+	border-radius: 8px;
+	padding: 14px 16px;
+	color: #ffffff;
+	font-family: 'Almendra', serif;
+	font-size: 16px;
+	transition: all 0.3s ease;
+}
+
+.form-group input::placeholder {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.form-group input:focus {
+	outline: none;
+	border-color: #F2D16D;
+	background-color: rgba(238, 233, 233, 0.12);
+	box-shadow: 0 0 15px rgba(242, 209, 109, 0.2);
+}
+
+.btn-enviar {
+	background-color: #F2D16D;
+	color: #231149;
+	font-size: 20px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-family: 'Almendra', serif;
+	font-weight: 700;
+	transition: all 0.3s ease;
+	padding: 12px 30px;
+	margin-top: 0px;
+	align-self: flex-start;
+}
+
+.btn-enviar:hover {
+	background-color: #231149;
+	color: #F2D16D;
+	transform: scale(1.05);
+}
+
+.btn-enviar:active {
+	background-color: #231149;
+	color: #F2D16D;
+	transform: scale(0.98);
 }
 

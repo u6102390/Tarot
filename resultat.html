@@ -50,7 +50,36 @@
                 <p id="result3-line2">Línia 2 de la interpretació</p>
             </div>
         </section>
+
+        <!-- New draw button -->
+        <div class="result-button-container">
+            <button class="btn-nova-tirada" onclick="location.href='baralla.html'">Nova tirada</button>
+            <p class="result-contact-text">Vols rebre el teu resultat per correu?<br>Contacta'ns!</p>
+            
+            <!-- Contact form -->
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="fullname">Noms i cognoms</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="email">Correu electrònic</label>
+                    <input type="email" id="email" name="email" placeholder="">
+                </div>
+                <button type="submit" class="btn-enviar">Enviar</button>
+            </form>
+        </div>
     </main>
+    <footer class="footer-section">
+         <div class="footer-text">NIMI'S<br>TAROT</div>
+         <div class="tarotistes-footer">
+             <p>Tarotistes encarregades de la web:</p>
+             <p>Nicole Verhaeren Méndez<br>&<br>Mireia Carreras Solà</p>
+         </div>
+         <div class="footer-message" style="font-family: 'Almendra', serif; font-weight: 700;">Segueix-nos i comparteix<br>la teva experiència!</div>
+         <img src="img/xxss.png" alt="Social media" class="footer-image">
+         <div class="footer-copyright">Nimi's Tarot<br>2025</div>
+     </footer>
     <script src="js/resultat.js"></script>
 </body>
 </html>

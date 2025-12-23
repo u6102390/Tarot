@@ -27,30 +27,30 @@ const tarotCards = [
 	{ name: "The World", image: "images/21_the_world.png" },
 ];
 
-// Breu interpretació (2 frases) per cada arcà major
-const interpretations = {
-	"The Fool": "Noves oportunitats i inici valent. Confia en el camí i aprèn en ruta.",
-	"The Magician": "Acció i manifestació amb els recursos que tens. Focalitza l'energia i comunica clar.",
-	"The High Priestess": "Intuïció, misteri i saviesa interior. Escolta el silenci i observa els senyals.",
-	"The Empress": "Fertilitat, creativitat i cura. Nodreix projectes i relacions amb paciència.",
-	"The Emperor": "Estructura, autoritat i ordre. Decideix amb fermesa i responsabilitat.",
-	"The Hierophant": "Tradició i aprendre d'un guia. Segueix valors compartits i ritus útils.",
-	"The Lovers": "Eleccions amb cor i ment. L'harmonia neix de l'honestedat i el compromís.",
-	"The Chariot": "Voluntat i avanç controlat. Disciplina per superar obstacles i guanyar.",
-	"The Strength": "Coratge suau i domini de l'instint. La bondat ferma transforma el repte.",
-	"The Hermit": "Recés i recerca interior. La llum ve de la reflexió i la prudència.",
-	"Wheel of Fortune": "Canvi de cicle i girs sobtats. Adapta't i confia en el flux.",
-	"Justice": "Equilibri, causa i efecte. Tria amb equitat i assumeix els resultats.",
-	"The Hanged Man": "Pausa i nova perspectiva. Rendeix-te al procés per desbloquejar.",
-	"Death": "Tancament i renaixement. Deixa anar l'antic per fer lloc al nou.",
-	"Temperance": "Mesura, integració i paciència. Barreja oposats per trobar harmonia.",
-	"The Devil": "Vincles, temptacions i dependències. Reconeix el lligam i allibera't amb consciència.",
-	"The Tower": "Sacsejada que derrueix estructures. Allibera el que ja no és sòlid i reconstrueix.",
-	"The Star": "Esperança, guia i sanació. Cuida't amb fe tranquil·la i inspira els altres.",
-	"The Moon": "Emocions, il·lusions i subconscient. Avança amb intuïció i comprova els fets.",
-	"The Sun": "Claredat, èxit i alegria. Gaudeix i comparteix la llum amb confiança.",
-	"Judgement": "Crida a renéixer i revisar. Perdona't, integra l'aprés i decideix.",
-	"The World": "Tancament satisfactori i completitud. Celebra el cicle i prepara el següent pas."
+// Descripcions proporcionades per a cada arcà major (paràgraf complet)
+const descriptions = {
+	"The Fool": "És la carta del *tarot que representa el desig d'aventura, una energia que ja no pot ser continguda. Lliure i independent, el Boig és un pioner que aspira a descobrir el seu veritable ser, gaudint cada pas d'aquesta exploració plena d'alegria.",
+	"The Magician": "El Mag és una carta que simbolitza el poder, la creativitat, l'habilitat i la manifestació. Representa a una persona que té el domini de les seves habilitats i recursos per a materialitzar els seus desitjos i objectius.",
+	"The High Priestess": "La Sacerdotessa Major simbolitza la intuïció, el misteri i la saviesa interior. Invita a escoltar la veu interna, observar en silenci i confiar en allò que encara no es mostra del tot.",
+	"The Empress": "Simbolitza la fertilitat, la creativitat, la maternitat, l'abundància natural, intel·ligència emocional i saviesa. Representa la força interior, l'energia femenina, l'amor i la compassió. En el seu aspecte més físic és la coqueteria, la sensualitat i el gaudi de la vida.",
+	"The Emperor": "La Summa Sacerdotessa és l'arcà associat al coneixement interior i els misteris ocults. Amb aquesta carta explorem la nostra intuïció, aprenem a escoltar la veu interior per a descobrir la serenitat i paciència de qualsevol desafiament.",
+	"The Hierophant": "Representa a una persona compromesa amb el que vol, que sap mantenir la seva integritat malgrat la crítica, capaç d'il·luminar a uns altres amb el seu exemple i ensenyaments. Les columnes de la carta representen les polaritats. Els dos personatges que estan en el pla inferior de la carta representen el desig i la raó.",
+	"The Lovers": "L'Enamorat generalment representa l'elecció d'un camí en lloc d'un altre, la cruïlla que requereix una decisió radical ja que qualsevol rumb pres implicarà deixar una altra oportunitat enrere, com seria triar a una parella sobre una altra, o al matrimoni sobre la solteria, etc.",
+	"The Chariot": "El Carro és la setena carta en dels Arcans Majors i està associada al número 7. Aquesta carta és un símbol de moviment, determinació i victòria sobre els obstacles, la qual cosa suggereix que qui rep aquesta carta en una lectura està en un camí de triomf que requereix control, enfocament i voluntat.",
+	"The Strength": "Aquesta carta envia un missatge de coratge, fortalesa i control, encara que també de compassió i paciència. Sens dubte, quan apareix en les teves tirades et recorda que has de centrar-te en el que vols, transitant amb determinació el camí que et porti a aconseguir-lo.",
+	"The Hermit": "Representa la introspecció, la meditació i la necessitat d'autoconeixement. No sols convida a la reflexió i a l'aïllament per a trobar respostes a preguntes profundes, sinó també simbolitza l'allunyament dels judicis dels altres i l'acceptació de les pròpies experiències.",
+	"Wheel of Fortune": "Es refereix a canvis en aquesta, ja sigui un rejoveniment, una crisi favorable i decisiva d'una malaltia que semblava estancada, un nou diagnòstic i tractament que ara es revelarà eficaç, etc. Carta invertida, el canvi significa caiguda del ritme vital, però mai de caràcter greu.",
+	"Justice": "És el sentit pràctic, el saber resoldre, el donar-se el que un necessita, l'aplicació de la raó, l'organització i la coordinació, l'ordre en la consecució dels objectius, la llei de causa i efecte. És també l'autoanàlisi, l'habilitat d'analitzar les situacions de manera pragmàtica i magnànima.",
+	"The Hanged Man": "El arcano del Colgado nos invita a soltar el control y aceptar los cambios desde una perspectiva más elevada. No es renuncia ni derrota, sino un ejercicio de fortaleza interior que nos prepara para los giros de la vida. Estamos ante una carta que nos habla específicamente del sacrificio por un bien aún invisible.",
+	"Death": "La carta de la Mort indica que una etapa important de la teva vida està arribant a la seva fi i que una nova està a punt de començar . Un altre significat és que experimentaràs un canvi, una transició o una transformació important. La teva antiga versió necessita morir per a permetre la creació d'una nova.",
+	"Temperance": "És la carta del tarot que simbolitza l'equilibri, la moderació, l'harmonia i la paciència. Representa la capacitat d'integrar oposats (com el conscient i inconscient, o l'esperit i el cos) per a avançar amb serenitat i flexibilitat en la vida.",
+	"The Devil": "L'única cosa dolenta que porta la carta del diable en el *Tarot és que representa el negatiu en les nostres vides, és a dir, totes aquelles situacions, persones o condicions que ens estan estancant i impedint sanar i seguir endavant en el camí de les nostres vides.",
+	"The Tower": "Hem d'entendre que, darrere de tota destrucció, hi ha un camí de renovació, de regeneració, que pot ser molt positiva. Aquesta carta t'indica que alguna cosa en la teva vida s'enfonsarà. Representa les forces divines impulsant a la persona, traient-la de la seva comoditat a la Torre d'Ivori perquè pugui enfrontar-se al món, créixer i evolucionar. La Torre, en una certa forma, representa l'arrogància que és castigada.",
+	"The Star": "L'Estrella en el tarot significa optimisme i fe quan apareix al dret. Si surt en aquesta posició en una de les teves tirades, pots estar contenta, perquè és una carta molt auspiciosa. Indica que tot en la teva vida (treball, amor, família) està en equilibri i harmonia.",
+	"The Moon": "Representa les nostres fantasies, les projeccions, la intuïció i la inspiració, la sensibilitat, la poesia, la receptivitat, la relació amb tot l'emocional. És així mateix el regne dels somnis, la imaginació, la idealització, els ancestres, les vides passades, la receptivitat.",
+	"The Sun": "Es diu que reflecteix felicitat, satisfacció, vitalitat, confiança en un mateix i èxit. A vegades és coneguda com la millor carta del tarot, perquè representa coses bones i resultats positius per a les lluites actuals. Ens parla d'èxit, confiança, expansió i una connexió pura amb la felicitat autèntica.",
+	"Judgement": "El Judici és un dels arcans associats a la transformació i a la presa de decisions importants. Amb ell, reflexionem sobre el passat per a donar pas a nous començaments o reconciliacions. El Judici és la carta de la resurrecció i de les notícies arribades «del cel» en el moment precís.",
+	"The World": "És la carta número 21 dels Arcans Majors del tarot. La carta del tarot El Món representa el final d'un cicle de vida, l'èxit, la pau i l'equilibri. És un arcà major que simbolitza la culminació d'objectius i la integració de la personalitat. Èxit assegurat, recompensa, viatge, ruta, emigració, fugida, canvi de lloc"
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -81,13 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Helper: produce two short lines from a description or sensible defaults
 	function getTwoLines(desc, name) {
+		const ensurePeriod = (s) => {
+			if (!s) return '';
+			const t = s.trim();
+			return /[.?!…]$/.test(t) ? t : t + '.';
+		};
 		if (desc && typeof desc === 'string') {
-			// split into sentences by .!? and trim
+			// split into sentences by .?! and keep punctuation; add a final period if missing
 			const parts = desc.split(/(?<=[.?!])\s+/).map(s => s.trim()).filter(Boolean);
-			if (parts.length >= 2) return [parts[0].replace(/[.?!]*$/, ''), parts[1].replace(/[.?!]*$/, '')];
+			if (parts.length >= 2) return [ensurePeriod(parts[0]), ensurePeriod(parts[1])];
 			if (parts.length === 1) {
-				const first = parts[0].replace(/[.?!]*$/, '');
-				return [first, 'Aspectes addicionals o consell pràctic.'];
+				return [ensurePeriod(parts[0]), 'Aspectes addicionals o consell pràctic.'];
 			}
 		}
 		// default lines (use the original card name in the message)
@@ -118,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const first = selectedThree[0];
 	const origName = findCanonicalName(first.image, first.name || 'Carta 1');
 	if (titleEl) titleEl.textContent = origName;
-		const desc = interpretations[origName] || interpretations[first.name] || first.description;
+		const desc = descriptions[origName] || descriptions[first.name] || first.description;
 		const [l1, l2] = getTwoLines(desc, origName);
 		if (line1El) line1El.textContent = l1;
 		if (line2El) line2El.textContent = l2;
@@ -146,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const second = selectedThree[1];
 	const origName2 = findCanonicalName(second.image, second.name || 'Carta 2');
 	if (title2El) title2El.textContent = origName2;
-		const desc2 = interpretations[origName2] || interpretations[second.name] || second.description;
+		const desc2 = descriptions[origName2] || descriptions[second.name] || second.description;
 		const [s1, s2] = getTwoLines(desc2, origName2);
 		if (line21El) line21El.textContent = s1;
 		if (line22El) line22El.textContent = s2;
@@ -170,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const third = selectedThree[2];
 	const origName3 = findCanonicalName(third.image, third.name || 'Carta 3');
 	if (title3El) title3El.textContent = origName3;
-		const desc3 = interpretations[origName3] || interpretations[third.name] || third.description;
+		const desc3 = descriptions[origName3] || descriptions[third.name] || third.description;
 		const [t1, t2] = getTwoLines(desc3, origName3);
 		if (line31El) line31El.textContent = t1;
 		if (line32El) line32El.textContent = t2;

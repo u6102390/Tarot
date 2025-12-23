@@ -43,6 +43,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.cards');
     if (!container) return;
 
+    // Flip sound effect using asset img/carta.MP3, with safe fallback
+    const getAudioCtx = () => {
+        try {
+            if (window.__flipAudioCtx) return window.__flipAudioCtx;
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            const ctx = new Ctx();
+            window.__flipAudioCtx = ctx;
+            return ctx;
+        } catch { return null; }
+    };
+    const beepFallback = () => {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        try { ctx.resume && ctx.resume(); } catch {}
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        const t0 = ctx.currentTime;
+        osc.frequency.setValueAtTime(700, t0);
+        osc.frequency.exponentialRampToValueAtTime(1100, t0 + 0.08);
+        gain.gain.setValueAtTime(0.06, t0);
+        gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.12);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t0);
+        osc.stop(t0 + 0.12);
+    };
+    const playFlipSound = () => {
+        // Play audio asset from audios/carta.mp4 with a fresh Audio instance each time
+        try {
+            const a = new Audio('audios/carta.mp4');
+            a.volume = 1.0;
+            a.play().catch((e) => {
+                console.warn('Flip audio play failed, using beep fallback', e);
+                beepFallback();
+            });
+        } catch (e) {
+            console.warn('Flip audio init failed, using beep fallback', e);
+            beepFallback();
+        }
+    };
+
     // helper: shuffle array copy
     const shuffle = (arr) => {
         const a = arr.slice();
@@ -115,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const toggle = () => {
                     card.classList.toggle('flipped');
                     card.classList.toggle('selected');
+                    playFlipSound();
 
                     const isSelected = card.classList.contains('selected');
                     if (isSelected) {

@@ -205,6 +205,11 @@ h1, p {
 	margin: 0.5rem 0 0;
 }
 
+/* Add breathing room before the illustration under the welcome text */
+.welcome-subtext p:last-of-type {
+	margin-bottom: 24px;
+}
+
 .welcome-subtext img {
 	margin-top: 20px;
 	display: inline-block;

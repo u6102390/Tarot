@@ -78,5 +78,22 @@
          <img src="img/xxss.png" alt="Social media" class="footer-image">
          <div class="footer-copyright">Nimi's Tarot<br>2025</div>
      </footer>
+     <script>
+     document.addEventListener('DOMContentLoaded', () => {
+         try {
+             const play = () => {
+                 try {
+                     const a = new Audio('audios/carta.mp4');
+                     a.volume = 1.0;
+                     a.play().catch(() => {});
+                 } catch {}
+             };
+             document.querySelectorAll('.flip-card .flip-card-inner').forEach(el => {
+                 // Use click only to ensure a user gesture unlocks audio
+                 el.addEventListener('click', play);
+             });
+         } catch {}
+     });
+     </script>
      </body>
 </html>

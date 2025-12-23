@@ -48,6 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const shuffledDeck = shuffle(tarotCards);
     const uniqueFronts = shuffledDeck.slice(0, cardsArray.length);
 
+    // maintain selection order so we can preserve the exact order the user selected cards
+    const selectionOrder = [];
+
     // for each generated card we'll assign a unique random tarot image for the front face
     cardsArray.forEach((c, i) => {
         const card = document.createElement('div');
@@ -84,11 +87,59 @@ document.addEventListener('DOMContentLoaded', () => {
         inner.appendChild(front);
         card.appendChild(inner);
 
-        // toggle function
+        // toggle function — preserves selection order
         const toggle = () => {
             card.classList.toggle('flipped');
             card.classList.toggle('selected');
             console.log('Card clicked/toggled:', card.dataset.name || card);
+
+            const isSelected = card.classList.contains('selected');
+            if (isSelected) {
+                // add to the end of the selection order
+                selectionOrder.push(card);
+            } else {
+                // remove from selection order if deselected
+                for (let idx = 0; idx < selectionOrder.length; idx++) {
+                    if (selectionOrder[idx] === card) {
+                        selectionOrder.splice(idx, 1);
+                        break;
+                    }
+                }
+            }
+
+            // when we have exactly 3 selected (in the order the user picked them), save and navigate
+            if (selectionOrder.length === 3) {
+                const picks = selectionOrder.map(s => {
+                    const frontImg = s.querySelector('.card-face.front');
+                    return {
+                        name: s.dataset.name || '',
+                        image: frontImg ? frontImg.src : ''
+                    };
+                });
+                try {
+                    sessionStorage.setItem('selectedThree', JSON.stringify(picks));
+                } catch (err) {
+                    console.warn('Could not save selected cards to sessionStorage', err);
+                }
+
+                // disable further clicks while transitioning
+                try { container.style.pointerEvents = 'none'; } catch (e) {}
+
+                // wait 1 second on the baralla screen (with pointer events disabled),
+                // then fade out over 1s and navigate — total 2s from selection to navigation
+                setTimeout(() => {
+                    try {
+                        const b = document.body;
+                        b.style.opacity = b.style.opacity || '1';
+                        b.style.transition = 'opacity 1s ease';
+                        requestAnimationFrame(() => { b.style.opacity = '0'; });
+                    } catch (err) {
+                        console.warn('Fade-out failed, will navigate after delay', err);
+                    }
+                    // navigate after fade-out completes (1s)
+                    setTimeout(() => { window.location.href = 'trio.html'; }, 1000);
+                }, 1000);
+            }
         };
 
         // click and keyboard handlers

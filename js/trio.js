@@ -1,5 +1,12 @@
 // trio.js — create three flip cards centered, back = image 5, front = random tarot image
 document.addEventListener('DOMContentLoaded', () => {
+    // trigger fade-in when the page loads (if body started with opacity 0)
+    try {
+        const b = document.body;
+        requestAnimationFrame(() => { b.style.opacity = '1'; });
+    } catch (err) {
+        // ignore
+    }
     const tarotCards = [ 
     { name: "The Fool", image: "images/0_the_fool.png" },
     { name: "The Magician", image: "images/1_the_magician.png" },
@@ -27,6 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // use the correct img folder for the back face
     const backCardImage = 'img/image 5.png';
+
+    // if the user came from baralla.html and selected three cards, they'll be stored in sessionStorage
+    let selectedThree = null;
+    try {
+        const raw = sessionStorage.getItem('selectedThree');
+        selectedThree = raw ? JSON.parse(raw) : null;
+    } catch (err) {
+        console.warn('Could not read selectedThree from sessionStorage', err);
+        selectedThree = null;
+    }
     const container = document.querySelector('.card-fan .cards');
     if (!container) return;
 
@@ -48,13 +65,23 @@ document.addEventListener('DOMContentLoaded', () => {
         back.src = backCardImage;
         back.alt = 'card back';
 
-    // pick a random tarot image for the front (fix path prefix if needed)
-    const rand = tarotCards[Math.floor(Math.random() * tarotCards.length)];
-    const fixPath = p => (typeof p === 'string' ? p.replace(/^images\//, 'img/') : p);
-    const front = document.createElement('img');
-    front.className = 'card-face front';
-    front.src = fixPath(rand.image) || fixPath(rand?.image) || backCardImage;
-    front.alt = rand.name || 'card front';
+        // pick a front image: prefer a selectedThree entry (when coming from baralla), otherwise pick random
+        const fixPath = p => (typeof p === 'string' ? p.replace(/^images\//, 'img/') : p);
+        let frontSrc = backCardImage;
+        let frontAlt = 'card front';
+        if (selectedThree && Array.isArray(selectedThree) && selectedThree[i]) {
+            frontSrc = selectedThree[i].image || backCardImage;
+            frontAlt = selectedThree[i].name || frontAlt;
+        } else {
+            const rand = tarotCards[Math.floor(Math.random() * tarotCards.length)];
+            frontSrc = fixPath(rand.image) || backCardImage;
+            frontAlt = rand.name || frontAlt;
+        }
+
+        const front = document.createElement('img');
+        front.className = 'card-face front';
+        front.src = fixPath(frontSrc);
+        front.alt = frontAlt;
 
         inner.appendChild(back);
         inner.appendChild(front);
@@ -81,8 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const offset = (idx - centerIndex) * spacing;
         // no rotation for trio cards — keep them upright
         const angle = 0; // degrees (0% rotation)
-    // move the trio cards down by 160px (add 160px to the translateY portion)
-    el.style.transform = `translate(-50%, calc(-60% + 160px)) rotate(${angle}deg) translateX(${offset}px)`;
+    // move the trio cards down by 210px (previously 160px) — this lowers them 50px
+    el.style.transform = `translate(-50%, calc(-60% + 230px)) rotate(${angle}deg) translateX(${offset}px)`;
         el.style.zIndex = `${100 - Math.abs(idx - centerIndex)}`;
     });
 });

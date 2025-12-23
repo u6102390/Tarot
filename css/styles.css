@@ -464,8 +464,8 @@ body {
 
 h1 {
 	position: absolute;
-	top: 20px;
-	right: 20px;
+	top: 10px;
+	right: 10px;
 	margin: 0;
 	z-index: 200; 
 	font-family: "Almendra";
@@ -474,6 +474,7 @@ h1 {
 	font-style: normal;
 	color: #F2D16D;
 	transition: color 180ms ease;
+	cursor: pointer;
 }
 
 h1:hover {
@@ -498,7 +499,7 @@ h2{
 	align-items: center;
 	margin-top: 85px;
 	/* move the whole fan up by 50px */
-	transform: translateY(-150px);
+	transform: translateY(-280px);
 }
 /* trio page specific spacing: distance from viewport top and bottom */
 .cards{
@@ -625,3 +626,37 @@ h2{
 	z-index: 150;
 }
 
+.contenedor-imagen {
+  position: relative; /* Para posicionar las imágenes dentro */
+  width: 80px; /* Ajusta el tamaño */
+  height: 80px;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-left: 35px;
+  rotate: 180%;
+}
+
+.contenedor-imagen img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease-in-out; /* Transición suave */
+}
+
+.img-base {
+  opacity: 1; /* Imagen visible por defecto */
+}
+
+.img-hover {
+  opacity: 0; /* Imagen oculta por defecto */
+}
+
+.contenedor-imagen:hover .img-hover {
+  opacity: 1; /* Mostrar imagen al hacer hover */
+}
+
+.contenedor-imagen:hover .img-base {
+  opacity: 0; /* Ocultar imagen base al hacer hover */
+}

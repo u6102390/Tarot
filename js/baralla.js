@@ -16,7 +16,7 @@ const tarotCards = [
     { name: "Temperance", image: "images/14_temperance.png" },
     { name: "The Devil", image: "images/15_the_devil.png" },
     { name: "The Tower", image: "images/16_the_tower.png" },
-    { name: "The Star", image:" images/17_the_star.png"},
+    { name: "The Star", image: "images/17_the_star.png"},
     { name: "The Moon", image: "images/18_the_moon.png" },
     { name: "The Sun", image: "images/19_the_sun.png" },
     { name: "Judgement", image: "images/20_judgement.png" },

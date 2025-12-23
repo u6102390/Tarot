@@ -47,6 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.card-fan .cards');
     if (!container) return;
 
+    // the view-results button: start disabled and will be enabled once 3 cards are flipped
+    const viewBtn = document.querySelector('.trio-btn');
+    if (viewBtn) viewBtn.disabled = true;
+
     // clear and create three cards
     container.innerHTML = '';
 
@@ -87,7 +91,23 @@ document.addEventListener('DOMContentLoaded', () => {
         inner.appendChild(front);
         card.appendChild(inner);
 
-        const toggle = () => card.classList.toggle('flipped');
+        const toggle = () => {
+            card.classList.toggle('flipped');
+
+            // after toggling, check how many cards are flipped
+            const flipped = Array.from(container.querySelectorAll('.card.flipped'));
+            if (flipped.length === 3) {
+                // disable further interaction with the fan
+                try { container.style.pointerEvents = 'none'; } catch (e) {}
+
+                // enable the "Veure resultats" button instead of auto-navigating
+                if (viewBtn) {
+                    viewBtn.disabled = false;
+                    viewBtn.classList.add('ready');
+                    try { viewBtn.focus(); } catch(e) {}
+                }
+            }
+        };
         card.addEventListener('click', toggle);
         inner.addEventListener('keydown', (ev) => {
             if (ev.key === 'Enter' || ev.key === ' ') {
@@ -112,4 +132,27 @@ document.addEventListener('DOMContentLoaded', () => {
     el.style.transform = `translate(-50%, calc(-60% + 230px)) rotate(${angle}deg) translateX(${offset}px)`;
         el.style.zIndex = `${100 - Math.abs(idx - centerIndex)}`;
     });
+
+    // When the user clicks the view-results button, perform the wait+fade+navigate sequence.
+    if (viewBtn) {
+        viewBtn.addEventListener('click', () => {
+            // guard: only allow if three cards are flipped
+            const flipped = container.querySelectorAll('.card.flipped');
+            if (!flipped || flipped.length < 3) return;
+
+            // prevent double clicks and further interaction
+            viewBtn.disabled = true;
+            try { container.style.pointerEvents = 'none'; } catch (e) {}
+
+            // Start fade immediately and navigate after the 1s fade (no extra waiting)
+            try {
+                const b = document.body;
+                b.style.transition = 'opacity 1s ease';
+                requestAnimationFrame(() => { b.style.opacity = '0'; });
+            } catch (err) {
+                console.warn('Fade-out failed, will navigate after delay', err);
+            }
+            setTimeout(() => { window.location.href = 'resultat.html'; }, 1000);
+        });
+    }
 });

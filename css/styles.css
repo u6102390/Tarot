@@ -13,6 +13,8 @@ body {
 	color: #ffffff;
 	font-family: 'Almendra', serif;
 	font-weight: 700;
+	/* lift the whole page up by 20px */
+	transform: translateY(-20px);
 }
 
 /* Index page specific background (explicit file requested by user: "fons.png") */
@@ -90,6 +92,34 @@ h1, p {
 	padding-left: 50px;
 }
 
+/* Trio-specific placement: button centered below the cards */
+.trio-button-wrap {
+	display: flex;
+	justify-content: center;
+	margin-top: -80px;
+}
+
+.trio-button-wrap .btn-escollir,
+.card-fan.trio .btn-escollir.trio-btn {
+	position: static;
+	transform: none;
+	margin: 0;
+	width: 240px;
+	height: 56px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Slightly smaller on very small screens */
+@media (max-width: 480px) {
+	.trio-button-wrap .btn-escollir {
+		width: 200px;
+		height: 52px;
+		font-size: 20px;
+	}
+}
+
 .zodiac-img {
 	position: absolute;
 	top: 50%;
@@ -112,7 +142,7 @@ h1, p {
 
 .brand-top-right {
 	position: absolute;
-	top: 50px;
+	top: 70px;
 	right: 60px;
 	color: #F2D16D;
 	font-size: 50px;
@@ -462,25 +492,6 @@ body {
 	background-attachment: fixed;
 }
 
-h1 {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	margin: 0;
-	z-index: 200; 
-	font-family: "Almendra";
-	font-weight: 700;
-	font-size: 85px;
-	font-style: normal;
-	color: #F2D16D;
-	transition: color 180ms ease;
-	cursor: pointer;
-}
-
-h1:hover {
-    color: #AA5AA3;
-}
-
 h2{
 	font-family: Almendra;
 	font-size: 36px;
@@ -489,7 +500,7 @@ h2{
 	line-height: normal;
 	color: var(--Fucsia, #F2D16D);
 	text-align: center;
-	padding-top: 90px;
+	padding-top: 160px;
 }
 
 .card-fan {
@@ -498,8 +509,8 @@ h2{
 	flex-direction: column;
 	align-items: center;
 	margin-top: 85px;
-	/* move the whole fan up by 50px */
-	transform: translateY(-280px);
+	/* move the whole fan up by 50px plus 68px more */
+	transform: translateY(-348px);
 }
 /* trio page specific spacing: distance from viewport top and bottom */
 .cards{
@@ -660,3 +671,112 @@ h2{
 .contenedor-imagen:hover .img-base {
   opacity: 0; /* Ocultar imagen base al hacer hover */
 }
+
+/* Result page: framed block showing first card image on the left and centered text */
+.result-page {
+	display: flex;
+	flex-direction: column; /* stack frames vertically */
+	justify-content: center;
+	align-items: center;
+	gap: 20px; /* spacing between frames */
+	/* lowered top padding by 60px so frames sit 60px higher */
+	padding: 160px 60px;
+}
+.result-frame {
+	display: flex;
+	align-items: center;
+	gap: 25px;
+	width: min(980px, 92%);
+	background: rgba(238, 233, 233, 0.04);
+	border: 1px solid rgba(242,209,109,0.12);
+	padding: 22px;
+	box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+	border-radius: 10px;
+}
+
+/* Three-column layout for result page */
+.three-columns {
+	display: flex;
+	gap: 20px; /* 20px margin between columns */
+	width: 100%;
+	max-width: 1200px;
+}
+.column {
+	flex: 1 1 0;
+	display: flex;
+	flex-direction: column;
+	gap: 20px; /* spacing between sections inside column */
+}
+.column-section {
+	/* sections can hold a .result-frame or other content */
+	min-height: 120px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.column .result-frame {
+	width: 100%; /* make frame fill its column */
+}
+.result-frame-left {
+	flex: 0 0 auto;
+	width: 205.44px;
+	height: 346.52px;
+}
+.result-card-img {
+	width: 205.44px;
+	height: 346.52px;
+	display: block;
+	border-radius: 6px;
+	box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+	object-fit: cover;
+}
+.result-frame-center {
+	flex: 1 1 auto;
+	text-align: center;
+	color: #F2D16D;
+}
+.result-frame-center h3 {
+	margin: 0 0 12px 0;
+	font-family: 'Almendra', serif;
+	font-size: 28px;
+	color: #F2D16D;
+}
+.result-frame-center p {
+	margin: 0;
+	color: #ffffff;
+	font-family: 'Public Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+	font-weight: 500;
+	line-height: 1.5;
+}
+
+@media (max-width: 720px) {
+	.result-frame { flex-direction: column; align-items: center; }
+	.result-frame-left { width: 60%; }
+	.result-frame-center { text-align: center; }
+}
+
+/* Ensure the second and third card images match trio sizes */
+.result-card2-img, .result-card3-img {
+	width: 205.44px;
+	height: 346.52px;
+	display: block;
+	border-radius: 6px;
+	box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+	object-fit: cover;
+}
+
+@media (max-width: 520px) {
+	.result-frame { flex-direction: column; align-items: center; }
+	.result-frame-left { width: 60%; }
+	.three-columns { flex-direction: column; }
+	.result-frame-left { width: 96px; height: 162px; }
+}
+
+/* Modifier: put the image on the right by reversing flex order */
+.result-frame-right {
+	flex-direction: row-reverse;
+}
+.result-frame-right .result-frame-left { /* keeps width semantics */
+	width: 205.44px;
+}
+

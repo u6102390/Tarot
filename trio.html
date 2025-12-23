@@ -8,11 +8,21 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body style="opacity: 0; transition: opacity 1s ease;">
-    <div class="brand-top-right">NIMI'S<br>TAROT</div>
+        <div class="brand-top-right">NIMI'S<br>TAROT</div>
 
-    <!-- trio: reuse .card-fan .cards selectors from styles.css so flip rules apply -->
+        <div class="contenedor-imagen">
+            <img src="img/exit groc.png" alt="EXIT" class="img-base">
+            <img src="img/exit fucsia.png" alt="exit" class="img-hover">
+        </div>
+
+        <!-- trio: reuse .card-fan .cards selectors from styles.css so flip rules apply -->
     <div class="card-fan trio">
         <div class="cards trio-cards"></div>
+    </div>
+    <!-- small centered button placed below the cards to view results -->
+    <div class="trio-button-wrap">
+        <!-- Disabled by default; enabled once the three cards are flipped -->
+        <button class="btn-escollir trio-btn" disabled>Veure resultats</button>
     </div>
 
     <script src="js/trio.js"></script>

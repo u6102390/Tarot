@@ -35,7 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // create DOM cards from the array (limit to 19 cards)
     const cardsArray = tarotCards.slice(0, 19); // take first 19 entries
 
-    // for each generated card we'll pick a random tarot image for the front face
+    // prepare a shuffled list of unique front images (no repeats)
+    const shuffle = (arr) => {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    };
+
+    const shuffledDeck = shuffle(tarotCards);
+    const uniqueFronts = shuffledDeck.slice(0, cardsArray.length);
+
+    // for each generated card we'll assign a unique random tarot image for the front face
     cardsArray.forEach((c, i) => {
         const card = document.createElement('div');
         card.className = 'card';
@@ -58,15 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
         back.className = 'card-face back';
         back.src = backCardImage;
         back.alt = 'card back';
-
-    // pick a random card from the full tarotCards array for the front face
-    const randCard = tarotCards[Math.floor(Math.random() * tarotCards.length)] || c;
-    // helper to fix path prefix (some entries use `images/` but assets live in `img/`)
-    const fixPath = (p) => (typeof p === 'string' ? p.replace(/^images\//, 'img/') : p);
-    const front = document.createElement('img');
-    front.className = 'card-face front';
-    front.src = fixPath(randCard.image || c.image) || backCardImage;
-    front.alt = randCard.name || c.name || 'card front';
+        // pick the preselected unique random card for this index
+        const randCard = uniqueFronts[i] || c;
+        // helper to fix path prefix (some entries use `images/` but assets live in `img/`)
+        const fixPath = (p) => (typeof p === 'string' ? p.replace(/^images\//, 'img/') : p);
+        const front = document.createElement('img');
+        front.className = 'card-face front';
+        front.src = fixPath(randCard.image || c.image) || backCardImage;
+        front.alt = randCard.name || c.name || 'card front';
 
         inner.appendChild(back);
         inner.appendChild(front);

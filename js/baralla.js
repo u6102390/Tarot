@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (exitEl) {
         exitEl.setAttribute('role', 'button');
         exitEl.setAttribute('tabindex', '0');
-        const goHome = () => { window.location.href = 'home.html'; };
+        const goHome = () => { window.location.href = 'index.html'; };
         exitEl.addEventListener('click', goHome);
         exitEl.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {

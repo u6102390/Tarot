@@ -79,24 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Show original card names (use the name provided in the selectedThree entries)
 
-	// Helper: produce two short lines from a description or sensible defaults
-	function getTwoLines(desc, name) {
-		const ensurePeriod = (s) => {
-			if (!s) return '';
-			const t = s.trim();
-			return /[.?!…]$/.test(t) ? t : t + '.';
-		};
-		if (desc && typeof desc === 'string') {
-			// split into sentences by .?! and keep punctuation; add a final period if missing
-			const parts = desc.split(/(?<=[.?!])\s+/).map(s => s.trim()).filter(Boolean);
-			if (parts.length >= 2) return [ensurePeriod(parts[0]), ensurePeriod(parts[1])];
-			if (parts.length === 1) {
-				return [ensurePeriod(parts[0]), 'Aspectes addicionals o consell pràctic.'];
-			}
-		}
-		// default lines (use the original card name in the message)
-		return [`Interpretació breu de ${name}.`, 'Aspectes addicionals o consell pràctic.'];
-	}
+	const fullDescription = (desc, name) => {
+		if (desc && typeof desc === 'string' && desc.trim()) return desc.trim();
+		return `Interpretació de ${name}.`;
+	};
 
 	const fixPath = p => (typeof p === 'string' ? p.replace(/^images\//, 'img/') : p);
 
@@ -123,9 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const origName = findCanonicalName(first.image, first.name || 'Carta 1');
 	if (titleEl) titleEl.textContent = origName;
 		const desc = descriptions[origName] || descriptions[first.name] || first.description;
-		const [l1, l2] = getTwoLines(desc, origName);
-		if (line1El) line1El.textContent = l1;
-		if (line2El) line2El.textContent = l2;
+		if (line1El) line1El.textContent = fullDescription(desc, origName);
+		if (line2El) line2El.textContent = '';
 		if (imgEl) {
 			imgEl.src = fixPath(first.image || 'img/image 5.png');
 			imgEl.alt = origName;
@@ -151,9 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const origName2 = findCanonicalName(second.image, second.name || 'Carta 2');
 	if (title2El) title2El.textContent = origName2;
 		const desc2 = descriptions[origName2] || descriptions[second.name] || second.description;
-		const [s1, s2] = getTwoLines(desc2, origName2);
-		if (line21El) line21El.textContent = s1;
-		if (line22El) line22El.textContent = s2;
+		if (line21El) line21El.textContent = fullDescription(desc2, origName2);
+		if (line22El) line22El.textContent = '';
 		if (img2El) {
 			img2El.src = fixPath(second.image || 'img/image 5.png');
 			img2El.alt = origName2;
@@ -175,9 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const origName3 = findCanonicalName(third.image, third.name || 'Carta 3');
 	if (title3El) title3El.textContent = origName3;
 		const desc3 = descriptions[origName3] || descriptions[third.name] || third.description;
-		const [t1, t2] = getTwoLines(desc3, origName3);
-		if (line31El) line31El.textContent = t1;
-		if (line32El) line32El.textContent = t2;
+		if (line31El) line31El.textContent = fullDescription(desc3, origName3);
+		if (line32El) line32El.textContent = '';
 		if (img3El) {
 			img3El.src = fixPath(third.image || 'img/image 5.png');
 			img3El.alt = origName3;

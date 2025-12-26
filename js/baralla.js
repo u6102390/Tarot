@@ -155,13 +155,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.appendChild(inner);
 
                 const toggle = () => {
-                    card.classList.toggle('flipped');
                     card.classList.toggle('selected');
                     playFlipSound();
 
                     const isSelected = card.classList.contains('selected');
                     if (isSelected) {
                         selectionOrder.push(card);
+                        // Apply fade-out effect immediately when selected
+                        card.classList.add('fade-out');
                     } else {
                         for (let idx = 0; idx < selectionOrder.length; idx++) {
                             if (selectionOrder[idx] === card) {
@@ -169,6 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 break;
                             }
                         }
+                        // Remove fade-out effect if deselected
+                        card.classList.remove('fade-out');
                     }
 
                     if (selectionOrder.length === 3) {

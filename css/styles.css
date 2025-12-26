@@ -631,6 +631,11 @@ h2{
 .card-fan .cards .card .card-face.back { transform: rotateY(0deg); }
 .card-fan .cards .card.flipped .card-inner { transform: rotateY(180deg); }
 
+.card-fan .cards .card.fade-out {
+	opacity: 0;
+	transition: opacity 600ms ease;
+}
+
 .card-fan .cards .card img {
 	width: 100%;
 	height: 100%;
